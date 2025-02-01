@@ -1,31 +1,33 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  frontend:
-    build: /frontend
-    restart: always 
-    ports:
-      -"80:80"
-    depends_on:
-      - backend
-  backend :
-    build: /backend
+  backend:
+    build: ./backend
     restart: always
     env_file:
-    - .env
+      - .env
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Expose backend port
     depends_on:
       - db
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "80:80"  # Expose frontend port
+    depends_on:
+      - backend
+
   db:
     image: mysql:5.7
     restart: always
     env_file:
       - .env
     ports:
-      - "3306:3306"
+      - "3306:3306"  # Expose database port
     volumes:
-      -db_data:var/lib/mysql
-  volumes:
-    db_data:
-  
+      - db_data:/var/lib/mysql  # Persist database data
+
+volumes:
+  db_data:  # Named volume to persist database data
