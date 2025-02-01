@@ -3,7 +3,7 @@ document.getElementById('nameForm').addEventListener('submit', async (event) => 
 
     const name = document.getElementById('nameInput').value;
 
-    const response = await fetch('http://65.0.131.1:5000/add', {
+    const response = await fetch('http://backend:5000/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
